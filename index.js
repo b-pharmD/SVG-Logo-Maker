@@ -8,7 +8,14 @@ inquirer
         {
             type: 'input',
             message: 'Please enter up to three characters of text for your logo.',
-            name: 'charInput'
+            name: 'charInput',
+            validate: function(chars) {
+                if (chars.length > 3) {
+                    return 'Must be 3 characters or less';
+                } else {
+                    return true;
+                }
+            }
         },
         {
             type: 'input',
@@ -28,5 +35,11 @@ inquirer
         },
     ])
     .then((answers) => {
-        console.log(answers);
+        if (answers.length == 0) {
+            console.log('Please enter your seletion')
+        }
+        else {
+            console.log(answers);
+        }
+        
     });
