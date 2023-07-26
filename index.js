@@ -4,15 +4,18 @@ var fs = require('fs');
 var inquirer = require('inquirer');
 inquirer
     .prompt([
-        // Input questions for user
+        // Input prompts for user
         {
             type: 'input',
             message: 'Please enter up to three characters of text for your logo.',
             name: 'charInput',
-            validate: function(chars) {
-                if (chars.length > 3) {
+            validate: function(input) {
+                if (input.length > 3) {
                     return 'Must be 3 characters or less';
-                } else {
+                } else if (input.length == 0) {
+                    return 'Must enter at least 1 character'
+                }
+                else {
                     return true;
                 }
             }
@@ -20,7 +23,15 @@ inquirer
         {
             type: 'input',
             message: 'Please enter a color keyword or hexadecimal number for your logo text color.',
-            name: 'textColorInput'
+            name: 'textColorInput',
+            validate: function(input) {
+                if (input.length == 0) {
+                    return 'Must Enter a color'
+                }
+                else {
+                    return true;
+                }
+            }
         },
         {
             type: 'list',
@@ -31,15 +42,17 @@ inquirer
         {
             type: 'input',
             message: 'Please enter a color keyword or hexadecimal number for your logo shape color.',
-            name: 'shapeColorInput'
+            name: 'shapeColorInput',
+            validate: function(input) {
+                if (input.length == 0) {
+                    return 'Selection cannot be empty'
+                }
+                else {
+                    return true;
+                }
+            }
         },
     ])
     .then((answers) => {
-        if (answers.length == 0) {
-            console.log('Please enter your seletion')
-        }
-        else {
-            console.log(answers);
-        }
-        
+        console.log(answers);      
     });
